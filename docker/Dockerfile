@@ -20,3 +20,12 @@ RUN set -euo pipefail; \
     curl -fsSL "https://github.com/transcend-io/terragrunt-atlantis-config/releases/download/v${TERRAGRUNT_ATLANTIS_CONFIG_VERSION}/terragrunt-atlantis-config_${TERRAGRUNT_ATLANTIS_CONFIG_VERSION}_linux_amd64.tar.gz" \
         | tar -xzv --strip-components=1 -C /usr/local/bin terragrunt-atlantis-config_${TERRAGRUNT_ATLANTIS_CONFIG_VERSION}_linux_amd64/terragrunt-atlantis-config_${TERRAGRUNT_ATLANTIS_CONFIG_VERSION}_linux_amd64; \
     ln -s /usr/local/bin/terragrunt-atlantis-config_${TERRAGRUNT_ATLANTIS_CONFIG_VERSION}_linux_amd64 /usr/local/bin/terragrunt-atlantis-config
+
+# Set Terraform to non-interactive mode.
+# See: https://www.terraform.io/docs/cli/config/environment-variables.html#tf_input
+# See: https://terragrunt.gruntwork.io/docs/reference/cli-options/#terragrunt-non-interactive
+ENV TF_INPUT=false
+
+# Don't suggest commands to run next.
+# See: https://www.terraform.io/docs/cli/config/environment-variables.html#tf_in_automation
+ENV TF_IN_AUTOMATION=true
