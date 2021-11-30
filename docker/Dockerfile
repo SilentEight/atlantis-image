@@ -1,11 +1,13 @@
 ARG version=latest
 FROM ghcr.io/runatlantis/atlantis:${version}
 
-ENV HELM_VERSION=3.7.1
-ENV TERRAGRUNT_VERSION=0.35.8
-ENV TERRAGRUNT_ATLANTIS_CONFIG_VERSION=1.9.2
-ENV TFSEC_VERSION=0.58.15
-ENV TERRASCAN_VERSION=1.12.0
+ENV HELM_VERSION=3.7.1 \
+    TERRAGRUNT_VERSION=0.35.13 \
+    TERRAGRUNT_ATLANTIS_CONFIG_VERSION=1.9.2 \
+    TFSEC_VERSION=0.61.3 \
+    TERRASCAN_VERSION=1.12.0 \
+    SOPS_VERSION=3.7.1 \
+    HELM_SECRETS_VERSION=3.11.0
 RUN set -euo pipefail; \
     curl -LSso /usr/local/bin/kubectl "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"; \
     chmod +x /usr/local/bin/kubectl; \
@@ -19,7 +21,16 @@ RUN set -euo pipefail; \
         | tar -xzvC /usr/local/bin terrascan; \
     curl -fsSL "https://github.com/transcend-io/terragrunt-atlantis-config/releases/download/v${TERRAGRUNT_ATLANTIS_CONFIG_VERSION}/terragrunt-atlantis-config_${TERRAGRUNT_ATLANTIS_CONFIG_VERSION}_linux_amd64.tar.gz" \
         | tar -xzv --strip-components=1 -C /usr/local/bin terragrunt-atlantis-config_${TERRAGRUNT_ATLANTIS_CONFIG_VERSION}_linux_amd64/terragrunt-atlantis-config_${TERRAGRUNT_ATLANTIS_CONFIG_VERSION}_linux_amd64; \
-    ln -s /usr/local/bin/terragrunt-atlantis-config_${TERRAGRUNT_ATLANTIS_CONFIG_VERSION}_linux_amd64 /usr/local/bin/terragrunt-atlantis-config
+    ln -s /usr/local/bin/terragrunt-atlantis-config_${TERRAGRUNT_ATLANTIS_CONFIG_VERSION}_linux_amd64 /usr/local/bin/terragrunt-atlantis-config; \
+    curl -LSso /usr/local/bin/sops "https://github.com/mozilla/sops/releases/download/v${SOPS_VERSION}/sops-v${SOPS_VERSION}.linux"; \
+    chmod +x /usr/local/bin/sops
+
+USER atlantis
+
+RUN set -euo pipefail; \
+  helm plugin install https://github.com/jkroepke/helm-secrets --version v${HELM_SECRETS_VERSION}
+
+USER root
 
 # Set Terraform to non-interactive mode.
 # See: https://www.terraform.io/docs/cli/config/environment-variables.html#tf_input
