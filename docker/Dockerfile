@@ -1,4 +1,4 @@
-ARG version=latest
+ARG version=0.17.5
 FROM ghcr.io/runatlantis/atlantis:${version}
 
 ENV HELM_VERSION=3.7.1 \
