@@ -2,7 +2,7 @@ ARG version=latest
 FROM ghcr.io/runatlantis/atlantis:${version}
 
 ENV HELM_VERSION=3.7.1 \
-    TERRAGRUNT_VERSION=0.35.13 \
+    TERRAGRUNT_VERSION=0.35.8 \
     TERRAGRUNT_ATLANTIS_CONFIG_VERSION=1.9.2 \
     TFSEC_VERSION=0.61.3 \
     TERRASCAN_VERSION=1.12.0 \
