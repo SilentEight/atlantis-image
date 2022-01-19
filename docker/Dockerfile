@@ -23,11 +23,7 @@ RUN set -euo pipefail; \
         | tar -xzv --strip-components=1 -C /usr/local/bin terragrunt-atlantis-config_${TERRAGRUNT_ATLANTIS_CONFIG_VERSION}_linux_amd64/terragrunt-atlantis-config_${TERRAGRUNT_ATLANTIS_CONFIG_VERSION}_linux_amd64; \
     ln -s /usr/local/bin/terragrunt-atlantis-config_${TERRAGRUNT_ATLANTIS_CONFIG_VERSION}_linux_amd64 /usr/local/bin/terragrunt-atlantis-config; \
     curl -LSso /usr/local/bin/sops "https://github.com/mozilla/sops/releases/download/v${SOPS_VERSION}/sops-v${SOPS_VERSION}.linux"; \
-    chmod +x /usr/local/bin/sops; \
-    apk add --no-cache python3 py3-pip; \
-    python3 -m pip install --upgrade pip; \
-    pip3 install --no-cache-dir awscli; \
-    rm -rf /var/cache/apk/*
+    chmod +x /usr/local/bin/sops
 
 USER atlantis
 
@@ -45,7 +41,7 @@ ENV TF_INPUT=false
 # See: https://www.terraform.io/docs/cli/config/environment-variables.html#tf_in_automation
 ENV TF_IN_AUTOMATION=true
 
-COPY docker-pre-entrypoint.sh aws-ssm-credential-helper.sh /usr/local/bin/
+COPY docker-pre-entrypoint.sh /usr/local/bin/
 
 ENTRYPOINT ["docker-pre-entrypoint.sh"]
 CMD ["server"]
