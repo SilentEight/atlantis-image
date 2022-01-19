@@ -48,3 +48,4 @@ ENV TF_IN_AUTOMATION=true
 COPY docker-pre-entrypoint.sh aws-ssm-credential-helper.sh /usr/local/bin/
 
 ENTRYPOINT ["docker-pre-entrypoint.sh"]
+CMD ["server"]
