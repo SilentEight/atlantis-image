@@ -25,7 +25,7 @@ RUN set -euo pipefail; \
     curl -LSso /usr/local/bin/sops "https://github.com/mozilla/sops/releases/download/v${SOPS_VERSION}/sops-v${SOPS_VERSION}.linux"; \
     chmod +x /usr/local/bin/sops; \
     apk add --no-cache python3 py3-pip; \
-    pip3 install --upgrade pip; \
+    python3 -m pip install --upgrade pip; \
     pip3 install --no-cache-dir awscli; \
     rm -rf /var/cache/apk/*
 

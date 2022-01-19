@@ -11,8 +11,7 @@ help:  ## List targets & descriptions
 
 .PHONY: build
 build:  ## Build container image
-	docker pull $(BASE_IMAGE):$(VERSION)
-	docker build --build-arg version=$(VERSION) -t $(IMAGE_NAME):$(VERSION) docker
+	docker buildx build --pull --build-arg version=$(VERSION) -t $(IMAGE_NAME):$(VERSION) docker
 
 .PHONY: push
 push: build  ## Push container image to repository
