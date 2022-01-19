@@ -40,3 +40,8 @@ ENV TF_INPUT=false
 # Don't suggest commands to run next.
 # See: https://www.terraform.io/docs/cli/config/environment-variables.html#tf_in_automation
 ENV TF_IN_AUTOMATION=true
+
+COPY docker-pre-entrypoint.sh /usr/local/bin/
+
+ENTRYPOINT ["docker-pre-entrypoint.sh"]
+CMD ["server"]
