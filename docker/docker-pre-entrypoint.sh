@@ -2,7 +2,7 @@
 set -e -o pipefail
 
 if [[ -n "$ATLANTIS_GITLAB_HOSTNAME" && -n "$ATLANTIS_GITLAB_USER" && -n "$ATLANTIS_GITLAB_TOKEN" ]]; then
-    echo "Configuring AWS SSM Git credential helper for Git repository: $GIT_REPOSITORY"
+    echo "Configuring AWS SSM Git credential helper for Git repository: $ATLANTIS_GITLAB_HOSTNAME"
 
     git config --global \
         "credential.https://$ATLANTIS_GITLAB_HOSTNAME.helper" \
