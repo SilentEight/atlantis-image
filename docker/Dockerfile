@@ -1,4 +1,4 @@
-ARG version=v0.17.6
+ARG version=v0.18.2
 FROM ghcr.io/runatlantis/atlantis:${version}
 
 ENV HELM_VERSION=3.8.0 \
@@ -25,7 +25,7 @@ RUN set -euo pipefail; \
     curl -LSso /usr/local/bin/sops "https://github.com/mozilla/sops/releases/download/v${SOPS_VERSION}/sops-v${SOPS_VERSION}.linux"; \
     chmod +x /usr/local/bin/sops
 
-# Upgrade default Terraform to 1.1.5, due to https://github.com/hashicorp/terraform/pull/30199.
+# Upgrade default Terraform to 1.1.5.
 # NOTE(ahaczewski): Copy-paste adapted from https://github.com/runatlantis/atlantis/blob/master/Dockerfile#L16
 ENV DEFAULT_TERRAFORM_VERSION=1.1.5
 RUN set -euo pipefail; \
