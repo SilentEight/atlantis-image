@@ -29,6 +29,8 @@ RUN set -euo pipefail; \
 # NOTE(ahaczewski): Copy-paste adapted from https://github.com/runatlantis/atlantis/blob/master/Dockerfile#L16
 ENV DEFAULT_TERRAFORM_VERSION=1.1.5
 RUN set -euo pipefail; \
+    rm /usr/local/bin/terraform1.1.*; \
+    rm -rf /usr/local/bin/tf/versions/1.1.*; \
     curl -LOs https://releases.hashicorp.com/terraform/${DEFAULT_TERRAFORM_VERSION}/terraform_${DEFAULT_TERRAFORM_VERSION}_linux_amd64.zip; \
     curl -LOs https://releases.hashicorp.com/terraform/${DEFAULT_TERRAFORM_VERSION}/terraform_${DEFAULT_TERRAFORM_VERSION}_SHA256SUMS; \
     sed -n "/terraform_${DEFAULT_TERRAFORM_VERSION}_linux_amd64.zip/p" terraform_${DEFAULT_TERRAFORM_VERSION}_SHA256SUMS | sha256sum -c; \
@@ -37,9 +39,7 @@ RUN set -euo pipefail; \
     ln -s /usr/local/bin/tf/versions/${DEFAULT_TERRAFORM_VERSION}/terraform /usr/local/bin/terraform${DEFAULT_TERRAFORM_VERSION}; \
     rm terraform_${DEFAULT_TERRAFORM_VERSION}_linux_amd64.zip; \
     rm terraform_${DEFAULT_TERRAFORM_VERSION}_SHA256SUMS; \
-    ln -sf /usr/local/bin/tf/versions/${DEFAULT_TERRAFORM_VERSION}/terraform /usr/local/bin/terraform; \
-    rm /usr/local/bin/terraform1.1.*; \
-    rm -rf /usr/local/bin/tf/versions/1.1.*
+    ln -sf /usr/local/bin/tf/versions/${DEFAULT_TERRAFORM_VERSION}/terraform /usr/local/bin/terraform
 
 USER atlantis
 
