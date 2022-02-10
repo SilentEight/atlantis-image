@@ -1,13 +1,13 @@
 ARG version=v0.17.6
 FROM ghcr.io/runatlantis/atlantis:${version}
 
-ENV HELM_VERSION=3.7.1 \
-    TERRAGRUNT_VERSION=0.35.20 \
+ENV HELM_VERSION=3.8.0 \
+    TERRAGRUNT_VERSION=0.36.1 \
     TERRAGRUNT_ATLANTIS_CONFIG_VERSION=1.12.3 \
-    TFSEC_VERSION=0.61.3 \
-    TERRASCAN_VERSION=1.12.0 \
+    TFSEC_VERSION=1.1.4 \
+    TERRASCAN_VERSION=1.13.0 \
     SOPS_VERSION=3.7.1 \
-    HELM_SECRETS_VERSION=3.11.0
+    HELM_SECRETS_VERSION=3.12.0
 RUN set -euo pipefail; \
     curl -LSso /usr/local/bin/kubectl "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"; \
     chmod +x /usr/local/bin/kubectl; \
