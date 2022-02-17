@@ -25,9 +25,9 @@ RUN set -euo pipefail; \
     curl -LSso /usr/local/bin/sops "https://github.com/mozilla/sops/releases/download/v${SOPS_VERSION}/sops-v${SOPS_VERSION}.linux"; \
     chmod +x /usr/local/bin/sops
 
-# Upgrade default Terraform to 1.1.5.
+# Upgrade default Terraform to 1.1.6.
 # NOTE(ahaczewski): Copy-paste adapted from https://github.com/runatlantis/atlantis/blob/master/Dockerfile#L16
-ENV DEFAULT_TERRAFORM_VERSION=1.1.5
+ENV DEFAULT_TERRAFORM_VERSION=1.1.6
 RUN set -euo pipefail; \
     rm /usr/local/bin/terraform1.1.*; \
     rm -rf /usr/local/bin/tf/versions/1.1.*; \
