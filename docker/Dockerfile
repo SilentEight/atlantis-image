@@ -44,8 +44,7 @@ RUN set -euo pipefail; \
 USER atlantis
 
 RUN set -euo pipefail; \
-    helm plugin install https://github.com/jkroepke/helm-secrets --version v${HELM_SECRETS_VERSION}; \
-    mkdir -p "${TF_PLUGIN_CACHE_DIR}"
+    helm plugin install https://github.com/jkroepke/helm-secrets --version v${HELM_SECRETS_VERSION}
 
 USER root
 
