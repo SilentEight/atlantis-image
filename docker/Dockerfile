@@ -43,9 +43,6 @@ RUN set -euo pipefail; \
 
 USER atlantis
 
-# Enable provider plugin cache
-# See: https://www.terraform.io/cli/config/config-file#provider-plugin-cache
-ENV TF_PLUGIN_CACHE_DIR="/home/atlantis/.terraform.d/plugin-cache"
 RUN set -euo pipefail; \
     helm plugin install https://github.com/jkroepke/helm-secrets --version v${HELM_SECRETS_VERSION}; \
     mkdir -p "${TF_PLUGIN_CACHE_DIR}"
